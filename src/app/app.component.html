@@ -1,0 +1,54 @@
+<div>
+  <div class="header">
+    <h1>Hello World - Jong</h1>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <td></td>
+        <td>제목</td>
+        <td>내용</td>
+        <td>날짜</td>
+        <td>비고</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <td>
+          <input
+            type="checkbox"
+            (click)="selectItem(item.key)"
+            [checked]="item.key === selectItemKey"
+          />
+        </td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.content }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.note }}</td>
+      </tr>
+      <tr>
+        <td><button (click)="handleItem()">+</button></td>
+        <td *ngIf="addYn">
+          <input type="text" [(ngModel)]="newData.title" />
+        </td>
+        <td *ngIf="addYn">
+          <input type="text" [(ngModel)]="newData.content" />
+        </td>
+        <td *ngIf="addYn">
+          <input type="text" [(ngModel)]="newData.date" />
+        </td>
+        <td *ngIf="addYn">
+          <button (click)="addTodoList()">추가</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="list_footer">
+    <button (click)="delTodoList()">선택 삭제</button>
+  </div>
+  <div>하위 컴포넌트에서 받은 TEXT 값 : {{ eventEmitText }}</div>
+  <app-root-child
+    [list]="list.length"
+    (eventEmit)="checkEventEmit($event)"
+  ></app-root-child>
+</div>
